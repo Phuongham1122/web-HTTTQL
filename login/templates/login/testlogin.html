@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form id="login-form" method="POST" action="{% url 'login:testlogin' %}">
+        {% csrf_token %}
+        <input type="text" id="username" name="username" placeholder="Tên người dùng"><br>
+        <input type="password" id="password" name="password" placeholder="Mật khẩu"><br>
+        <button type="button" id="login-btn">Đăng nhập</button>
+
+        <div id="error-message" style="display: none; color: red;"></div>
+    </form>
+    <script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
+<!--    <script>-->
+<!--        $(document).ready(function(){-->
+<!--            $("#login-btn").click(function(e){-->
+<!--                e.preventDefault();-->
+<!--                var username = $("#username").val();-->
+<!--                var password = $("#password").val();-->
+<!--                var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();-->
+
+<!--                $.ajax({-->
+<!--                    type: "POST",-->
+<!--                    url: "/view/testlogin/",  // Địa chỉ URL để gửi yêu cầu đăng nhập-->
+<!--                    headers: {'X-CSRFToken': csrfToken},-->
+<!--                    data: {-->
+<!--                        'username': username,-->
+<!--                        'password': password-->
+<!--                    },-->
+<!--                    success: function(response) {-->
+<!--                        console.log("OK")-->
+<!--                    },-->
+<!--                    error: function(xhr, errmsg, err) {-->
+<!--                        $("#error-message").text('Lỗi không xác định. Vui lòng thử lại sau.').show();-->
+<!--                    }-->
+<!--                });-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+</body>
+</html>
