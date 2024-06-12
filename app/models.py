@@ -24,6 +24,34 @@ class Customers(models.Model):
         db_table = 'Customers'
 
 
+class PhoneNumber(models.Model):
+    CustomerId = models.ForeignKey(Customers, on_delete=models.CASCADE, db_column="CustomerId")
+    phone = models.CharField(max_length=15, primary_key=True)
+
+    class Meta:
+        db_table = 'PhoneNumber'
+
+
+class TemporaryOrder(models.Model):
+    OrderId = models.CharField(max_length=10, primary_key=True)
+    OrderDate = models.DateField()
+    CustomerName = models.CharField(max_length=50)
+    Status = models.IntegerField()
+    phone = models.CharField(max_length=15)
+
+    class Meta:
+        db_table = 'TemporaryOrder'
+
+
+class TemporaryItems(models.Model):
+    ItemId = models.CharField(max_length=10)
+    Amount = models.IntegerField()
+    OrderId = models.ForeignKey(TemporaryOrder, on_delete=models.CASCADE, db_column='OrderId')
+
+    class Meta:
+        db_table = 'TemporaryItems'
+
+
 class TravelCustomers(models.Model):
     CustomerId = models.OneToOneField(Customers, primary_key=True, on_delete=models.CASCADE, db_column='CustomerId')
     TourGuide = models.CharField(max_length=50)
@@ -31,6 +59,10 @@ class TravelCustomers(models.Model):
 
     class Meta:
         db_table = 'TravelCustomers'
+
+
+# class Test(models.Model):
+#     name = models.CharField(max_length=50)
 
 
 class PostalCustomers(models.Model):

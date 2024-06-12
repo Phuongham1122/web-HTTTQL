@@ -9,7 +9,8 @@ var KTAppEcommerceProducts = function () {
     var sizeM;
     var sizeXL;
     var addToCart;
-    var selectedValue
+    var selectedValue;
+    var select;
 
     var handelOpenModal = function () {
         openButton.forEach(o => {
@@ -75,12 +76,14 @@ var KTAppEcommerceProducts = function () {
                 $(".js-select2").each(function(){
                     $(this).select2('destroy');
 	            })
+                select.selectedIndex = 0;
 			});
 		});
 
         $(".js-select2").on("change", function () {
             selectedValue = $(this).val();
         });
+
         addToCart.addEventListener('click', function(e) {
             e.preventDefault();
             const user = document.querySelector('[data-user-check-login="check"]').value;
@@ -96,25 +99,40 @@ var KTAppEcommerceProducts = function () {
                     }
                 });
             }else {
-                var productId = selectedValue;
-                var name = modal.querySelector('[data-kt-product-modal="name"]').textContent
-                var price = modal.querySelector('[data-kt-product-modal="price"]').textContent
-                var amount = modal.querySelector('[data-product-modal-number="count"]').value
-                var item = {
-                    Name: name.trim(),
-                    ItemId: productId,
-                    Price: price.trim(),
-                    Amount: amount,
+                const checkSize = document.querySelector("#check-chosen");
+                if(select.selectedIndex === 0) {
+                    checkSize.style.display = "block";
+                }else {
+                    checkSize.style.display = "none";
+                    var productId = selectedValue;
+                    var name = modal.querySelector('[data-kt-product-modal="name"]').textContent
+                    var price = modal.querySelector('[data-kt-product-modal="price"]').textContent
+                    var amount = modal.querySelector('[data-product-modal-number="count"]').value
+                    var item = {
+                        Name: name.trim(),
+                        ItemId: productId,
+                        Price: price.trim(),
+                        Amount: amount,
+                    }
+                    var cart = JSON.parse(localStorage.getItem(user)) || [];
+                    let itemIndex = cart.findIndex(itemCart => itemCart.ItemId === item.ItemId);
+                    if (itemIndex !== -1) {
+                        item.Amount = Number(item.Amount) + Number(cart[itemIndex].Amount);
+                        cart[itemIndex] = { ...cart[itemIndex], ...item };
+                    } else {
+                        cart.push(item);
+                    }
+                    localStorage.setItem(user, JSON.stringify(cart));
+                    var totalCount = cart.length;
+                    const data_notify = document.querySelectorAll('[data-notify-number="notification-cart"]');
+                    data_notify.forEach(dn => {
+                        dn.setAttribute('data-notify', cart.length.toString());
+                    });
+                    handelGetCart(cart);
+                    console.log("Số sản phẩm:", totalCount);
+                    console.log("sản phẩm gồm: ", cart);
+                    swal(name, "is added to cart !", "success");
                 }
-                var cart = JSON.parse(localStorage.getItem(user)) || [];
-                cart.push(item);
-                localStorage.setItem(user, JSON.stringify(cart));
-                var totalCount = cart.length;
-                const data_notify = document.querySelector('#notification-cart');
-                data_notify.setAttribute('data-notify', totalCount.toString());
-                handelGetCart(cart);
-                console.log("Số sản phẩm:", totalCount);
-                console.log("sản phẩm gồm: ", cart);
             }
         });
 
@@ -176,12 +194,13 @@ var KTAppEcommerceProducts = function () {
         init: function () {
             openButton = document.querySelectorAll('[data-kt-modal-open="open"]');
             closeButton = document.querySelectorAll('[data-kt-modal-close="close"]');
-            addToCart = document.querySelector('#add-to-cart')
+            addToCart = document.querySelector('#add-to-cart');
             modal = document.querySelector(".js-modal1");
-            sizeS = modal.querySelector('[data-product-value-modal="S"]')
-            sizeM = modal.querySelector('[data-product-value-modal="M"]')
-            sizeL = modal.querySelector('[data-product-value-modal="L"]')
-            sizeXL = modal.querySelector('[data-product-value-modal="XL"]')
+            sizeS = modal.querySelector('[data-product-value-modal="S"]');
+            sizeM = modal.querySelector('[data-product-value-modal="M"]');
+            sizeL = modal.querySelector('[data-product-value-modal="L"]');
+            sizeXL = modal.querySelector('[data-product-value-modal="XL"]');
+            select = document.querySelector(".js-select2");
             handelOpenModal();
         }
     };
@@ -192,25 +211,17 @@ KTUtil.onDOMContentLoaded(function () {
     KTAppEcommerceProducts.init();
 });
 
-// (function ($) {
-//     "use strict";
-//     var form;
-//     var openButton = document.querySelectorAll('[data-kt-modal-open="open"]');
-//     var closeButton = document.querySelectorAll('[data-kt-modal-close="close"]');
-//     var modal = document.querySelector(".js-modal1");
-//
-//     openButton.forEach(o => {
-//         o.addEventListener('click', function(e) {
-//             e.preventDefault();
-//             $('.js-modal1').addClass('show-modal1');
-//         });
-//     });
-//
-//     closeButton.forEach(c => {
-//         c.addEventListener('click', function(e) {
-//             e.preventDefault();
-//             $('.js-modal1').removeClass('show-modal1');
-//         });
-//     });
-//
-// })(jQuery);
+(function ($) {
+    "use strict";
+
+    $('.btn-num-product-down').on('click', function(){
+        var numProduct = Number($(this).next().val());
+        if(numProduct > 0) $(this).next().val(numProduct - 1);
+    });
+
+    $('.btn-num-product-up').on('click', function(){
+        var numProduct = Number($(this).prev().val());
+        $(this).prev().val(numProduct + 1);
+    });
+
+})(jQuery);

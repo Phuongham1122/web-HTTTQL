@@ -298,7 +298,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Catalog</span>
+                                    <span class="menu-title">Store</span>
                                     <span class="menu-arrow"></span>
                                 </span>
                                 <!--end:Menu link-->
@@ -333,6 +333,18 @@
                                 <!--end:Menu link-->
                                 <!--begin:Menu sub-->
                                 <div class="menu-sub menu-sub-accordion">
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="{% url 'customadmin:orderApproval' %}">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Order Approval</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
                                 </div>
                                 <!--end:Menu sub-->
                             </div>
@@ -425,13 +437,13 @@
         <!--begin::Footer-->
         <div class="app-sidebar-project-default app-sidebar-project-minimize text-center min-h-lg-400px flex-column-auto d-flex flex-column justify-content-end" id="kt_app_sidebar_footer">
             <!--begin::Title-->
-            <h2 class="fw-bold text-gray-800">Welcome to Saul</h2>
+            <h2 class="fw-bold text-gray-800">Welcome to my group</h2>
             <!--end::Title-->
             <!--begin::Description-->
             <div class="fw-semibold text-gray-700 fs-7 lh-2 px-7 mb-1">Join the movement make a difference.</div>
             <!--end::Description-->
             <!--begin::Illustration-->
-            <img class="mx-auto h-150px h-lg-175px mb-4" src="assets/media/misc/saul-welcome.png" alt="" />
+            <img class="mx-auto h-150px h-lg-175px mb-4" src="{% static 'assets/media/misc/saul-welcome.png' %}" alt="" />
             <!--end::Illustration-->
             <div class="text-center mb-lg-5 pb-lg-3">
                 <a href="#" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#kt_modal_create_account">Get Started</a>
@@ -700,19 +712,19 @@
         <!--begin::Copyright-->
         <div class="text-dark order-2 order-md-1">
             <span class="text-muted fw-semibold me-1">2023&copy;</span>
-            <a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>
+            <a href="" target="_blank" class="text-gray-800 text-hover-primary">Ngo Duc Phuong</a>
         </div>
         <!--end::Copyright-->
         <!--begin::Menu-->
         <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
             <li class="menu-item">
-                <a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
+                <a href="" target="_blank" class="menu-link px-2">About</a>
             </li>
             <li class="menu-item">
-                <a href="https://devs.keenthemes.com" target="_blank" class="menu-link px-2">Support</a>
+                <a href="" target="_blank" class="menu-link px-2">Support</a>
             </li>
             <li class="menu-item">
-                <a href="https://keenthemes.com/products/saul-html-pro" target="_blank"
+                <a href="" target="_blank"
                    class="menu-link px-2">Purchase</a>
             </li>
         </ul>
@@ -734,7 +746,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_add_customer_header">
                     <!--begin::Modal title-->
-                    <h2 class="fw-bold">Thêm một sản phẩm</h2>
+                    <h2 class="fw-bold">Add a product</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div id="kt_modal_add_customer_close" class="btn btn-icon btn-sm btn-active-icon-primary">
@@ -754,7 +766,7 @@
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="required fs-6 fw-semibold mb-2">Tên sản phẩm</label>
+                            <label class="required fs-6 fw-semibold mb-2">Name</label>
                             <!--end::Label-->
                             <!--begin::Input-->
                             <input type="text" class="form-control form-control-solid" placeholder="" name="Descriptions" value="" />
@@ -764,7 +776,7 @@
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="required fs-6 fw-semibold mb-2">Giá</label>
+                            <label class="required fs-6 fw-semibold mb-2">Price</label>
                             <!--end::Label-->
                             <!--begin::Input-->
                             <input type="text" class="form-control form-control-solid" placeholder="" name="Price" value="" />
@@ -774,7 +786,7 @@
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="required fs-6 fw-semibold mb-2">Khối lượng</label>
+                            <label class="required fs-6 fw-semibold mb-2">Weight</label>
                             <!--end::Label-->
                             <!--begin::Input-->
                             <input type="text" class="form-control form-control-solid" placeholder="" name="Weight" value="" />
@@ -784,7 +796,7 @@
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="required fs-6 fw-semibold mb-2">Kích thước</label>
+                            <label class="required fs-6 fw-semibold mb-2">Size</label>
                             <!--end::Label-->
                             <!--begin::Input-->
                             <input type="text" class="form-control form-control-solid" placeholder="" name="Size" value="" />
@@ -827,7 +839,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header" id="kt_modal_edit_product_header">
                     <!--begin::Modal title-->
-                    <h2 class="fw-bold" id="kt_modal_edit_product_value_header">Sửa thông tin sản phẩm</h2>
+                    <h2 class="fw-bold" id="kt_modal_edit_product_value_header">Edit product</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div id="kt_modal_edit_product_close" class="btn btn-icon btn-sm btn-active-icon-primary">
@@ -846,7 +858,7 @@
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="required fs-6 fw-semibold mb-2">Tên sản phẩm</label>
+                            <label class="required fs-6 fw-semibold mb-2">Name</label>
                             <!--end::Label-->
                             <!--begin::Input-->
                             <input type="hidden"  name="ItemId" value="" />
@@ -857,7 +869,7 @@
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="required fs-6 fw-semibold mb-2">Giá</label>
+                            <label class="required fs-6 fw-semibold mb-2">Price</label>
                             <!--end::Label-->
                             <!--begin::Input-->
                             <input type="text" class="form-control form-control-solid" placeholder="" name="Price" value="" />
@@ -867,7 +879,7 @@
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="required fs-6 fw-semibold mb-2">Khối lượng</label>
+                            <label class="required fs-6 fw-semibold mb-2">Weight</label>
                             <!--end::Label-->
                             <!--begin::Input-->
                             <input type="text" class="form-control form-control-solid" placeholder="" name="Weight" value="" />
@@ -877,7 +889,7 @@
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="required fs-6 fw-semibold mb-2">Kích thước</label>
+                            <label class="required fs-6 fw-semibold mb-2">Size</label>
                             <!--end::Label-->
                             <!--begin::Input-->
                             <input type="text" class="form-control form-control-solid" placeholder="" name="Size" value="" />

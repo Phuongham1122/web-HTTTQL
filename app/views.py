@@ -1,7 +1,12 @@
+import json
+import re
+
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import *
+from django.utils import timezone
 from django.views import View
+
+from .models import *
 
 from collections import defaultdict
 
@@ -32,3 +37,35 @@ def main(request):
 class ShopCart(View):
     def get(self, request):
         return render(request, 'app/shop-cart.html')
+
+    def post(self, request):
+        data = json.loads(request.body)
+        order = TemporaryOrder()
+        idOrder = genId()
+        order.OrderId = idOrder
+        order.CustomerName = data.get('CustomerName', 'No Name')
+        order.phone = data.get('phone', 'No Phone')
+        order.OrderDate = timezone.now()
+        order.Status = 1
+        order.save()
+        productList = data.get('products', [])
+        for product in productList:
+            tItem = TemporaryItems()
+            tItem.ItemId = product.get('ItemId')
+            tItem.Amount = int(product.get('Amount'))
+            tItem.OrderId = TemporaryOrder.objects.get(pk=idOrder)
+            tItem.save()
+        print(data)
+        return HttpResponse('success')
+
+
+def genId():
+    tOrder = TemporaryOrder.objects.last()
+    new_id = "OD00000001"
+    if tOrder is not None:
+        max_id = tOrder.OrderId
+        prefix = re.search(r'^(\D+)', max_id).group(1)
+        suffix = int(re.search(r'(\d+)$', max_id).group(1))
+        new_suffix = suffix + 1
+        new_id = f"{prefix}{new_suffix:08d}"
+    return new_id

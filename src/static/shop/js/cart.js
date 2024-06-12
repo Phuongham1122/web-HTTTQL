@@ -8,13 +8,18 @@ var KTAppAddToCart = function () {
 
         }else {
             cart = JSON.parse(localStorage.getItem(user)) || [];
-            const data_notify = document.querySelector('#notification-cart');
-            data_notify.setAttribute('data-notify', cart.length.toString());
+            const data_notify = document.querySelectorAll('[data-notify-number="notification-cart"]');
+            data_notify.forEach(dn => {
+                dn.setAttribute('data-notify', cart.length.toString());
+            });
             const cart_list = document.querySelector('[data-product-card-list="list"]');
+            cart_list.innerHTML = '';
             if (!cart || cart.length === 0) {
-
+                const divEmpty = document.createElement('div');
+                divEmpty.style.fontWeight = "bold";
+                divEmpty.textContent = "No product on your cart";
+                cart_list.appendChild(divEmpty);
             } else {
-                cart_list.innerHTML = '';
                 let totalPrice = 0;
                 let productItem;
                 cart.forEach(product => {
