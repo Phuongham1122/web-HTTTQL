@@ -41,12 +41,12 @@
 						<!--begin::Header-->
 						<div class="d-flex flex-row-fluid flex-column text-center p-5 p-lg-10 pt-lg-20">
 							<!--begin::Logo-->
-							<a href="../dist/index.html" class="py-2 py-lg-20">
+							<a href="{% url 'web:main' %}" class="py-2 py-lg-20">
 								<img alt="Logo" src="{% static 'assets/media/logos/mail.svg' %}" class="h-40px h-lg-50px" />
 							</a>
 							<!--end::Logo-->
 							<!--begin::Title-->
-							<h1 class="d-none d-lg-block fw-bold text-white fs-2qx pb-5 pb-md-10">Welcome to Saul HTML Free</h1>
+							<h1 class="d-none d-lg-block fw-bold text-white fs-2qx pb-5 pb-md-10">Welcome to our website</h1>
 							<!--end::Title-->
 							<!--begin::Description-->
 							<p class="d-none d-lg-block fw-semibold fs-2 text-white">Plan your blog post by choosing a topic creating
@@ -73,7 +73,7 @@
 								{% csrf_token %}
 								<div class="text-center mb-10">
 									<!--begin::Title-->
-									<h1 class="text-dark mb-3">Sign In to Saul HTML Free</h1>
+									<h1 class="text-dark mb-3">Sign In to our Web</h1>
 									<!--end::Title-->
 									<!--begin::Link-->
 									<div class="text-gray-400 fw-semibold fs-4">New Here?
